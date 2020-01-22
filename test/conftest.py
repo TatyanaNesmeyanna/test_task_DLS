@@ -1,11 +1,13 @@
 import json
 import requests
 import pytest
+from helpers.session import Session
+
 
 BASE_URL = "https://testmassproduct.d-l-s.ru/"
 
 @pytest.fixture(scope='session')
-def token():
+def session():
     _response = requests.post(url=BASE_URL + 'api/Authorization', data={'username': '79044444444', 'password': '123123123', 'grantType': 'password'})
     assert _response.status_code == 200
     decoded_response = json.loads(_response.content.decode('utf-8'))
@@ -15,5 +17,6 @@ def token():
     # getting a access-token
     access_token = decoded_response['access_token']
     assert access_token is not None
-    return access_token
+    _session = Session(access_token)
+    return _session
 
