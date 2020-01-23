@@ -17,6 +17,6 @@ def session():
     # getting a access-token
     access_token = decoded_response['access_token']
     assert access_token is not None
-    _session = Session(access_token)
-    return _session
+    sess = Session(access_token)
+    return sess
 
